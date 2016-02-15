@@ -1,0 +1,5 @@
+import urllib2
+mp3file = urllib2.urlopen("http://download.thinkbroadband.com/10MB.zip")
+output = open('test.mp3','wb')
+output.write(mp3file.read())
+output.close()
