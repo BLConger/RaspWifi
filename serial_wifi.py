@@ -1,6 +1,7 @@
 import time
 import serial
 from  wifi import Cell
+import urllib2
 
 ser=serial.Serial(port ="/dev/ttyAMA0",
 baudrate=9600,
@@ -25,14 +26,17 @@ def getcells():
 		datast=datast+"Channel: "+str(cll.channel)+"\n"
 		datast=datast+"Addess: "+str(cll.address)+"\n"
 		datast=datast+"Quality: "+str(cll.quality)+"\n"
-	
-#print cll.bitrates
-	#print cll.frequency
-	#print cll.quality
-	#print cll.mode
-	#print cll.adress
-	#print cll.encryption_type
 	return datast
+def lrg_dwnl():
+	t=time.time()
+	time2dwnl=0
+	mp3file = urllib2.urlopen("http://download.thinkbroadband.com/10MB.zip")
+	output = open('test.mp3','wb')
+	output.write(mp3file.read())
+	time2dwln-time.time()-t
+	output.close()
+	return str(time2dwnl)
+
 
 cellx=Cell.all('wlan0')
 try:
@@ -68,6 +72,10 @@ try:
 				print "Sent command GET_CELLS"
 				cmdlist.remove("GET_CELLS")
 				ser.write(getcells())
+			elif cmd == "LARGE_DWNL":
+				print "Sent CMD LARGE_DWNLOAD"
+				cmdlist.remove("LARGE_DWNL")
+				ser.write(lrg_dwnl())
 			else:
 				cmdlist.remove(cmd)
 				print "Invalid Command : ", cmd
